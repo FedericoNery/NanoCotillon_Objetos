@@ -14,8 +14,13 @@ class UI(tk.Frame):
         self.numeroColumna = 0
         self.numeroFila = 0
         self.parent.title("NANO COTILLON")
-        self.etiqueta = tk.Label(self.parent,text = self.textoVentanaPrincipalEncabezado())
-        self.etiqueta.grid(row = 0,column = 0)
+        self.parent.columnconfigure(0, weight=1)
+        self.parent.columnconfigure(1, weight=1)
+        self.parent.columnconfigure(2, weight=1)
+
+
+
+        self.etiqueta = tk.Label(self.parent,text = self.textoVentanaPrincipalEncabezado(),justify = "center").grid(row = 0,column = 1,sticky="nsew")
         self.listaDeBotones = self.generarBotones()
 
     def textoVentanaPrincipalEncabezado(self):
@@ -38,7 +43,7 @@ class UI(tk.Frame):
             "9. Modificar Marca",
             "10. Crear Factura",
             "11. Imprimir Factura por nro de factura",
-            "12. Crear Nueva Base De Datos(solo para el técnico)",
+            "12. Crear Nueva Base De Datos",
             "13. Consultar Precio del producto",
             "14. Consultar por Palabra Clave",
             "15. Consultar por Area",
@@ -51,7 +56,7 @@ class UI(tk.Frame):
         ]
         listaBotones = []
         for i in listaNombres:
-            listaBotones.append(tk.Button(self.parent,text = i))
+            listaBotones.append(tk.Button(self.parent,text = i,justify ="center",command = "function", width=20, height=3))
 
         fila = 1
         columna = 0
@@ -60,13 +65,16 @@ class UI(tk.Frame):
             if(indiceBoton % 3 == 0):
                 fila = fila + 1
                 columna = 0
-            j.grid(row = fila, column = columna)
+            j.grid(row = fila, column = columna) #sticky="nsew")
             columna = columna + 1
         return listaBotones
 
 
 ROOT = tk.Tk()
 ROOT.geometry("800x600")
+
+ROOT['borderwidth'] = 10
+ROOT['relief'] = 'sunken'
 APP = UI(parent=ROOT)
 APP.mainloop()
 ROOT.destroy()
