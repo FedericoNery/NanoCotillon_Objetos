@@ -1,5 +1,5 @@
 from six.moves import tkinter as tk
-
+import AgregarArticulo
 
 class UI(tk.Frame):
     """Docstring."""
@@ -7,7 +7,6 @@ class UI(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.parent = parent
         self.init_ui()
-
 
     def init_ui(self):
         """Aqui colocariamos los widgets."""
@@ -17,8 +16,6 @@ class UI(tk.Frame):
         self.parent.columnconfigure(0, weight=1)
         self.parent.columnconfigure(1, weight=1)
         self.parent.columnconfigure(2, weight=1)
-
-
         self.etiqueta = tk.Label(self.parent,text = self.textoVentanaPrincipalEncabezado(),justify = "center").grid(row = 0,column = 1,sticky="nsew")
         self.listaDeBotones = self.generarBotones()
 
@@ -52,25 +49,50 @@ class UI(tk.Frame):
             "20. Consultar Venta\n Anual",
             "21. Consultar Venta\n Mensual"
         ]
+        listaDeFunciones = ["agregarArticulo",
+            "agregarCliente",
+            "agregarMarca",
+            "eliminarArticulo",
+            "eliminarCliente",
+            "eliminarMarca",
+            "modificarArticulo",
+            "modificarCliente",
+            "modificarMarca",
+            "crearFactura",
+            "imprimirFacturaPorNroDeFactura",
+            "crearNuevaBaseDeDatos",
+            "consultarPrecioDelProducto",
+            "consultarPorPalabraClave",
+            "consultarPorArea",
+            "consultarPorFechaDeActualizacion",
+            "consultarProductosSinStock",
+            "consultarTotalDelDia",
+            "imprimirUltimaFactura",
+            "consultarVentaAnual",
+            "consultarVentaMensual"
+        ]
         listaBotones = []
-        for i in listaNombres:
-            listaBotones.append(tk.Button(self.parent,text = i,justify ="center",command = "function", width=20, height=3))
+        for nombreDeCadaBoton in listaNombres:
+            for nombreDeFuncion in listaDeFunciones:
+                if(listaNombres.index(nombreDeCadaBoton) == listaDeFunciones.index(nombreDeFuncion)):
+                    listaBotones.append(tk.Button(self.parent,text = nombreDeCadaBoton,justify ="center",command = lambda : nombreDeFuncion, width=20, height=3))
 
         fila = 1
         columna = 0
-        for j in listaBotones:
-            indiceBoton = listaBotones.index(j)
+        for boton in listaBotones:
+            indiceBoton = listaBotones.index(boton)
             if(indiceBoton % 3 == 0):
                 fila = fila + 1
                 columna = 0
-            j.grid(row = fila, column = columna) #sticky="nsew")
+            boton.grid(row = fila, column = columna)
             columna = columna + 1
         return listaBotones
 
+    def agregarArticulo(self):
+        AgregarArticulo.ClaseAgregarArticulo.mostrarAgregarArticulo()
 
 ROOT = tk.Tk()
 ROOT.geometry("800x600")
-
 ROOT['borderwidth'] = 10
 ROOT['relief'] = 'sunken'
 APP = UI(parent=ROOT)
