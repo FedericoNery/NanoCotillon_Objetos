@@ -19,7 +19,6 @@ class UI(tk.Frame):
         self.parent.columnconfigure(2, weight=1)
 
 
-
         self.etiqueta = tk.Label(self.parent,text = self.textoVentanaPrincipalEncabezado(),justify = "center").grid(row = 0,column = 1,sticky="nsew")
         self.listaDeBotones = self.generarBotones()
 
@@ -27,7 +26,6 @@ class UI(tk.Frame):
         return """NANO COTILLON
     Sistema de consulta y registro de los productos
     Creado por : Federico Nery
-    Colaboracion de : Lucas Kammann
     """
 
     def generarBotones(self):
@@ -42,17 +40,17 @@ class UI(tk.Frame):
             "8. Modificar Cliente",
             "9. Modificar Marca",
             "10. Crear Factura",
-            "11. Imprimir Factura por nro de factura",
-            "12. Crear Nueva Base De Datos",
-            "13. Consultar Precio del producto",
-            "14. Consultar por Palabra Clave",
-            "15. Consultar por Area",
-            "16. Consultar por Fecha de Actualizacion",
-            "17. Consultar Productos Sin Stock",
-            "18. Consultar Total Del Dia",
-            "19. Imprimir última factura",
-            "20. Consultar Venta Anual",
-            "21. Consultar Venta Mensual"
+            "11. Imprimir Factura \n por nro de factura",
+            "12. Crear Nueva \nBase De Datos",
+            "13. Consultar Precio\n del producto",
+            "14. Consultar por\n Palabra Clave",
+            "15. Consultar por\n Area",
+            "16. Consultar por\n Fecha de Actualizacion",
+            "17. Consultar Productos \nSin Stock",
+            "18. Consultar Total\n Del Dia",
+            "19. Imprimir última\n factura",
+            "20. Consultar Venta\n Anual",
+            "21. Consultar Venta\n Mensual"
         ]
         listaBotones = []
         for i in listaNombres:
