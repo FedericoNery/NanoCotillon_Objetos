@@ -1,18 +1,17 @@
-from tkinter import Tk, Label, Button
-from tkinter import ttk
 from tkinter import *
+from tkinter import ttk
 
-class GUIAgregarArticulo:
+class GUIAgregarCliente:
     def __init__(self, master):
         self.master = master
-        master.title("AGREGAR ARTICULO")
+        master.title("AGREGAR CLIENTE")
         master.geometry("565x500+400+50")
 
-        self.labelCodigo = Label(self.master, text="Codigo de Barra")
+        self.labelCodigo = Label(self.master, text="Nombre de Cliente")
         self.labelCodigo.grid(row=0, column=1)
         self.labelDescripcion = Label(self.master, text="Descripción")
         self.labelDescripcion.grid(row=1, column=1)
-        self.labelPrecio = Label(self.master, text="Precio")
+        self.labelPrecio = Label(self.master, text="Numero de Telefono")
         self.labelPrecio.grid(row=2, column=1)
         self.labelStock = Label(self.master, text="Stock")
         self.labelStock.grid(row=3, column=1)
@@ -44,18 +43,9 @@ class GUIAgregarArticulo:
         self.s = Spinbox(self.master, from_=1.0, to=100.0, textvariable=self.spinval)
         self.s.grid(row=10, column=1)
 
-        self.buttonAgregarArticulo = Button(self.master, text="2. Agregar Cliente", command=self.agregarArticulo, width=20, height=3)
-        self.buttonAgregarArticulo.grid(row=11, column=1)
-
-    def agregarArticulo(self):
-        print("Agregar articulo!!!")
-
-    def verificarDatos(self):
-        pass
-
     def crearVentana(self):
         self.root = Tk()
-        self.my_gui = GUIAgregarArticulo(self.root)
+        self.my_gui = GUIAgregarCliente(self.root)
         self.root.mainloop()
 
 
