@@ -1,58 +1,62 @@
 from tkinter import Tk, Label, Button
 from tkinter import ttk
 from tkinter import *
+from tkinter import messagebox
 import BaseDeDatos
 import Articulo
+import time
+import AgregarMarca
+
 
 class GUIAgregarArticulo:
     def __init__(self, master):
         self.baseDeDatos = BaseDeDatos.BaseDeDatos()
-        self.baseDeDatos.conectarConBaseDeDatos()
 
         self.miArticulo = Articulo.Articulo()
 
         self.master = master
         master.title("AGREGAR ARTICULO")
-        master.geometry("565x500+400+50")
+        master.geometry("565x200+400+200")
+
 
         self.labelCodigo = Label(self.master, text="Codigo de Barra")
         self.labelCodigo.grid(row=0, column=1)
         self.labelDescripcion = Label(self.master, text="Descripción")
-        self.labelDescripcion.grid(row=1, column=1)
+        self.labelDescripcion.grid(row=0, column=2)
         self.labelPrecio = Label(self.master, text="Precio")
         self.labelPrecio.grid(row=2, column=1)
         self.labelStock = Label(self.master, text="Stock")
-        self.labelStock.grid(row=3, column=1)
+        self.labelStock.grid(row=4, column=1)
         self.labelMarca = Label(self.master, text="Marca")
-        self.labelMarca.grid(row=4, column=1)
+        self.labelMarca.grid(row=2, column=2)
         self.labelArea = Label(self.master, text="Area")
-        self.labelArea.grid(row=5, column=1)
+        self.labelArea.grid(row=0, column=3)
 
         self.intCodigo = IntVar()
         self.entryCodigo = ttk.Entry(self.master, textvariable=self.intCodigo)
-        self.entryCodigo.grid(row=6, column=1)
+        self.entryCodigo.grid(row=1, column=1, padx=5, pady = 5)
 
         self.stringNombre = StringVar()
         self.entryNombre = ttk.Entry(self.master, textvariable=self.stringNombre)
-        self.entryNombre.grid(row=7, column=1)
+        self.entryNombre.grid(row=1, column=2, padx=5, pady = 5)
 
         self.doublePrecio = DoubleVar()
         self.entryPrecio = ttk.Entry(self.master, textvariable=self.doublePrecio)
-        self.entryPrecio.grid(row=8, column=1)
+        self.entryPrecio.grid(row=3, column=1, padx=5, pady = 5)
 
         self.intStock = IntVar()
         self.entryStock = ttk.Entry(self.master, textvariable=self.intStock)
-        self.entryStock.grid(row=8, column=1)
+        self.entryStock.grid(row=5, column=1, padx=5, pady = 5)
 
-        self.l = Listbox(self.master,listvariable=self.baseDeDatos.listaDeMarcas, height=10)
-        self.l.grid(row=9, column=1)
+        self.listboxMarcas = Listbox(self.master, listvariable=self.baseDeDatos.listaDeMarcas, height=5)
+        self.listboxMarcas.grid(row=3, column=2, rowspan = 5)
 
-        self.spinval = StringVar()
-        self.s = Spinbox(self.master, values = self.baseDeDatos.listaDeAreas, textvariable=self.spinval)
-        self.s.grid(row=10, column=1)
+        self.stringArea = StringVar()
+        self.spinboxArea = Spinbox(self.master, values = self.baseDeDatos.listaDeAreas, textvariable=self.stringArea)
+        self.spinboxArea.grid(row=1, column=3)
 
         self.buttonAgregarArticulo = Button(self.master, text="Agregar Articulo", command=self.agregarArticulo, width=20, height=3)
-        self.buttonAgregarArticulo.grid(row=11, column=1)
+        self.buttonAgregarArticulo.grid(row=2, column=3, rowspan=3, padx=10)
 
     def agregarArticulo(self):
         if(self.verificarDatos()):
@@ -67,12 +71,27 @@ class GUIAgregarArticulo:
     def verificarDatos(self):
         self.estado = False
         try:
-            self.miArticulo.setArticulo(self.intCodigo,self.stringNombre, self.doublePrecio,self.idMarca,self.idArea,self.fechaActualizacion
-                                               ,self.intStock,1)
-            self.estado = True
+            fecha = time.strftime("%y/%m/%d")
+            codigoDeBarras = self.entryCodigo.getint()
+            nombre = self.entryNombre.get()
+            precio = self.entryPrecio.getdouble()
 
+            self.stringArea = self.spinboxArea.get()
+            idMarca = self.listboxMarcas.curselection()
+            idArea = self.stringArea
+            stock = self.entryStock.getint()
+
+
+            if(len(idMarca) != 0):
+                self.miArticulo.setArticulo(codigoDeBarras, nombre, precio, idMarca, idArea, fecha, stock, 1)
+                self.estado = True
+            else:
+                self.master.destroy()
+                self.baseDeDatos.cerrarBaseDeDatos()
+                AgregarMarca.GUIAgregarMarca.crearVentana(self)
+                self.estado = False
         except:
-            ttk.messagebox.showinfo(message='VERIFIQUE LOS DATOS INGRESADOS', icon ="warning")
+            messagebox.showinfo(parent=self.master,message='VERIFIQUE LOS DATOS INGRESADOS', icon ="warning", title="ERROR")
             self.estado = False
 
         return self.estado

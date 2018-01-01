@@ -15,7 +15,12 @@ class BaseDeDatos():
         self.extraerListaDeMarcas()
 
     def conectarConBaseDeDatos(self):
-        self.baseDeDatos = sqlite3.connect("C:/Users/Federico-PC/PycharmProjects/NanoCotillon_Objetos/nanoCotillon.db")
+        try:
+            self.baseDeDatos = sqlite3.connect("C:/Users/Federico-PC/PycharmProjects/NanoCotillon_Objetos/nanoCotillon.db")
+            print("todoOK")
+        except:
+            self.crearBaseDeDatosNueva()
+            print("que onda la BD")
 
     def definirCursor(self):
         self.cursorBaseDeDatos = self.baseDeDatos.cursor()
@@ -66,8 +71,8 @@ class BaseDeDatos():
         return comandoDeCreacion
 
     def crearBaseDeDatosNueva(self):
-        self.conectarConBaseDeDatos()
-        self.definirCursor()
+       # self.conectarConBaseDeDatos()
+       # self.definirCursor()
         self.setComandoSql(self.comandoSQLParaCrearBaseDeDatosNueva())
         self.ejecutarVariosComandos()
         self.guardarBaseDeDatos()
@@ -96,5 +101,6 @@ class BaseDeDatos():
         except:
             print("error lista areas")
 
-
+    def cerrarBaseDeDatos(self):
+        self.baseDeDatos.close()
 

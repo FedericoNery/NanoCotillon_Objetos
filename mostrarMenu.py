@@ -1,5 +1,6 @@
 from tkinter import Tk, Label, Button
 import AgregarArticulo
+import AgregarMarca
 
 class MyFirstGUI:
     def __init__(self, master):
@@ -74,13 +75,13 @@ class MyFirstGUI:
 
 
     def agregarArticulo(self):
-       AgregarArticulo.GUIAgregarArticulo.crearVentana(self)
+        AgregarArticulo.GUIAgregarArticulo.crearVentana(self)
 
     def agregarCliente(self):
         pass
 
     def agregarMarca(self):
-        pass
+        AgregarMarca.GUIAgregarMarca.crearVentana(self)
 
     def eliminarArticulo(self):
         pass
