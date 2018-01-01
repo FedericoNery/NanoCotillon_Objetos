@@ -1,8 +1,10 @@
 from tkinter import *
 from tkinter import ttk
+import BaseDeDatos
 
 class GUIAgregarMarca:
     def __init__(self, master):
+
         self.master = master
         master.title("AGREGAR MARCA")
         master.geometry("565x500+400+50")

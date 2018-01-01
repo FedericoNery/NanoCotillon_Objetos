@@ -7,9 +7,15 @@ class BaseDeDatos():
         self.tabla = None
         self.elemento = None
         self.comandoSQL = ""
+        self.listaDeAreas = []
+        self.listaDeMarcas = []
+        self.conectarConBaseDeDatos()
+        self.definirCursor()
+        self.extraerListaDeAreas()
+        self.extraerListaDeMarcas()
 
     def conectarConBaseDeDatos(self):
-        self.baseDeDatos = sqlite3.connect("C:/Users/Federico-PC/PycharmProjects/NanoCotillonBeta/nuevaBase.db")
+        self.baseDeDatos = sqlite3.connect("C:/Users/Federico-PC/PycharmProjects/NanoCotillon_Objetos/nanoCotillon.db")
 
     def definirCursor(self):
         self.cursorBaseDeDatos = self.baseDeDatos.cursor()
@@ -60,10 +66,35 @@ class BaseDeDatos():
         return comandoDeCreacion
 
     def crearBaseDeDatosNueva(self):
-        self.conectarConBaseDeDatos(self)
-        self.definirCursor(self)
+        self.conectarConBaseDeDatos()
+        self.definirCursor()
         self.setComandoSql(self.comandoSQLParaCrearBaseDeDatosNueva())
-        self.ejecutarVariosComandos(self)
-        self.guardarBaseDeDatos(self)
+        self.ejecutarVariosComandos()
+        self.guardarBaseDeDatos()
         self.setComandoSql("")
+
+    def extraerListaDeMarcas(self):
+        try:
+            self.setComandoSql('SELECT NOMBRE_MARCA FROM MARCAS;')
+            self.ejecutarComandoSQL()
+            tablaDeMarcas = self.cursorBaseDeDatos.fetchall()
+            for marca in tablaDeMarcas:
+                self.listaDeMarcas.append(marca[0])
+
+        except:
+            print("error lista marcas")
+
+
+    def extraerListaDeAreas(self):
+        try:
+            self.setComandoSql('SELECT NOMBRE_AREA FROM AREAS;')
+            self.ejecutarComandoSQL()
+            tablaDeAreas = self.cursorBaseDeDatos.fetchall()
+            for area in tablaDeAreas:
+                self.listaDeAreas.append(area[0])
+
+        except:
+            print("error lista areas")
+
+
 

@@ -9,7 +9,7 @@ class Articulo():
         self.stock = 0
         self.altaBaja = 0
 
-    def __init__(self,codigoDeBarra,nombreArticulo,precio,idMarca,idArea,fechaActualizacion,stock,altaBaja):
+    def setArticulo(self,codigoDeBarra,nombreArticulo,precio,idMarca,idArea,fechaActualizacion,stock,altaBaja):
         self.codigoDeBarra = codigoDeBarra
         self.nombreArticulo = nombreArticulo
         self.precio = precio
