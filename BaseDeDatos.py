@@ -85,6 +85,7 @@ class BaseDeDatos():
             tablaDeMarcas = self.cursorBaseDeDatos.fetchall()
             for marca in tablaDeMarcas:
                 self.listaDeMarcas.append(marca[0])
+                print(marca[0])
 
         except:
             print("error lista marcas")

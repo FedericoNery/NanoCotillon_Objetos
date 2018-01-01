@@ -11,7 +11,6 @@ import AgregarMarca
 class GUIAgregarArticulo:
     def __init__(self, master):
         self.baseDeDatos = BaseDeDatos.BaseDeDatos()
-
         self.miArticulo = Articulo.Articulo()
 
         self.master = master
@@ -50,6 +49,7 @@ class GUIAgregarArticulo:
 
         self.listboxMarcas = Listbox(self.master, listvariable=self.baseDeDatos.listaDeMarcas, height=5)
         self.listboxMarcas.grid(row=3, column=2, rowspan = 5)
+        self.listboxMarcas.insert(0, *self.baseDeDatos.listaDeMarcas)
 
         self.stringArea = StringVar()
         self.spinboxArea = Spinbox(self.master, values = self.baseDeDatos.listaDeAreas, textvariable=self.stringArea)
@@ -67,22 +67,30 @@ class GUIAgregarArticulo:
 
             self.baseDeDatos.ejecutarComandoSQL()
             self.baseDeDatos.guardarBaseDeDatos()
+            messagebox.showinfo(parent=self.master, message='ARTICULO GUARDADO', icon="info", title="EXITO!", type="ok")
+            self.master.destroy()
 
     def verificarDatos(self):
         self.estado = False
         try:
             fecha = time.strftime("%y/%m/%d")
-            codigoDeBarras = self.entryCodigo.getint()
-            nombre = self.entryNombre.get()
-            precio = self.entryPrecio.getdouble()
+            self.intCodigo = self.entryCodigo.get()
+            self.stringNombre = self.entryNombre.get()
+            self.doublePrecio = self.entryPrecio.get()
+
+            codigoDeBarras = self.intCodigo
+            nombre = self.stringNombre
+            precio = self.doublePrecio
 
             self.stringArea = self.spinboxArea.get()
             idMarca = self.listboxMarcas.curselection()
-            idArea = self.stringArea
-            stock = self.entryStock.getint()
+
+            idArea = self.baseDeDatos.listaDeAreas.index(self.stringArea)
+            stock = self.entryStock.get()
 
 
             if(len(idMarca) != 0):
+                idMarca = idMarca[0]
                 self.miArticulo.setArticulo(codigoDeBarras, nombre, precio, idMarca, idArea, fecha, stock, 1)
                 self.estado = True
             else:
