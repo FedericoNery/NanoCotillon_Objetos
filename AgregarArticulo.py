@@ -58,12 +58,13 @@ class GUIAgregarArticulo:
         self.buttonAgregarArticulo = Button(self.master, text="Agregar Articulo", command=self.agregarArticulo, width=20, height=3)
         self.buttonAgregarArticulo.grid(row=2, column=3, rowspan=3, padx=10)
 
+        self.buttonAgregarMarca = Button(self.master, text="Agregar Marca", command=self.agregarMarca, width=20, height=3)
+        self.buttonAgregarMarca.grid(row=5, column=3, rowspan=3, padx=10)
+
     def agregarArticulo(self):
         if(self.verificarDatos()):
-            self.baseDeDatos.setComandoSql('INSERT INTO ARTICULOS (CODIGO_DE_BARRA, NOMBRE_ARTICULO,PRECIO,ARTICULO_MARCA,ARTICULO_AREA,STOCK,ALTA_BAJA)'
-                                           'VALUES({},"{}",{},{},{},{},{});')\
-                .format(self.miArticulo.codigoDeBarra,self.miArticulo.nombreArticulo,self.miArticulo.precio,
-                        self.miArticulo.idMarca,self.miArticulo.idArea,self.miArticulo.stock,self.miArticulo.altaBaja)
+            self.baseDeDatos.setComandoSql('INSERT INTO ARTICULOS (CODIGO_DE_BARRA, NOMBRE_ARTICULO,PRECIO,ARTICULO_MARCA,ARTICULO_AREA,STOCK,ALTA_BAJA) VALUES({},"{}",{},{},{},{},{});'.format(self.miArticulo.codigoDeBarra,self.miArticulo.nombreArticulo,self.miArticulo.precio,
+                        self.miArticulo.idMarca,self.miArticulo.idArea,self.miArticulo.stock,self.miArticulo.altaBaja))
 
             self.baseDeDatos.ejecutarComandoSQL()
             self.baseDeDatos.guardarBaseDeDatos()
@@ -85,12 +86,12 @@ class GUIAgregarArticulo:
             self.stringArea = self.spinboxArea.get()
             idMarca = self.listboxMarcas.curselection()
 
-            idArea = self.baseDeDatos.listaDeAreas.index(self.stringArea)
+            idArea = self.baseDeDatos.listaDeAreas.index(self.stringArea) + 1
             stock = self.entryStock.get()
 
 
             if(len(idMarca) != 0):
-                idMarca = idMarca[0]
+                idMarca = idMarca[0] +1
                 self.miArticulo.setArticulo(codigoDeBarras, nombre, precio, idMarca, idArea, fecha, stock, 1)
                 self.estado = True
             else:
@@ -103,6 +104,11 @@ class GUIAgregarArticulo:
             self.estado = False
 
         return self.estado
+
+    def agregarMarca(self):
+        self.master.destroy()
+        self.baseDeDatos.cerrarBaseDeDatos()
+        AgregarMarca.GUIAgregarMarca.crearVentana(self)
 
     def crearVentana(self):
         self.root = Tk()
