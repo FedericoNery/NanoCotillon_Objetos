@@ -1,10 +1,10 @@
 from tkinter import *
 from tkinter import ttk
 
-class GUIEliminarCliente:
+class GUIModificarMarca:
     def __init__(self, master):
         self.master = master
-        master.title("ELIMINAR CLIENTE")
+        master.title("MODIFICAR MARCA")
         master.geometry("565x500+400+50")
 
         self.labelNombreCliente = Label(self.master, text="Nombre del Cliente")
@@ -22,7 +22,5 @@ class GUIEliminarCliente:
 
     def crearVentana(self):
         self.root = Tk()
-        self.my_gui = GUIEliminarCliente(self.root)
+        self.my_gui = GUIModificarMarca(self.root)
         self.root.mainloop()
-
-
