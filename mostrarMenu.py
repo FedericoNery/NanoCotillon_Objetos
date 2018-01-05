@@ -1,6 +1,17 @@
 from tkinter import Tk, Label, Button
 import AgregarArticulo
 import AgregarMarca
+import EliminarArticulo
+import EliminarMarca
+import EliminarCliente
+import ConsultarPorPalabraClave
+import ConsultarPrecioDelProducto
+import ConsultarProductosSinStock
+import ModificarArticulo
+import ModificarCliente
+import ModificarMarca
+import CrearFactura
+import BaseDeDatos
 
 class MyFirstGUI:
     def __init__(self, master):
@@ -84,37 +95,37 @@ class MyFirstGUI:
         AgregarMarca.GUIAgregarMarca.crearVentana(self)
 
     def eliminarArticulo(self):
-        pass
+        EliminarArticulo.GUIEliminarArticulo.crearVentana(self)
 
     def eliminarCliente(self):
-        pass
+        EliminarCliente.GUIEliminarCliente.crearVentana(self)
 
     def eliminarMarca(self):
-        pass
+        EliminarMarca.GUIEliminarMarca.crearVentana(self)
 
     def modificarArticulo(self):
-        pass
+        ModificarArticulo.GUIModificarArticulo.crearVentana(self)
 
     def modificarCliente(self):
-        pass
+        ModificarCliente.GUIModificarCliente.crearVentana(self)
 
     def modificarMarca(self):
-        pass
+        ModificarMarca.GUIModificarMarca.crearVentana(self)
 
     def crearFactura(self):
-        pass
+        CrearFactura.GUICrearFactura.crearVentana(self)
 
     def imprimirPorNumDeFact(self):
         pass
 
     def crearBaseDeDatos(self):
-        pass
+        BaseDeDatos.BaseDeDatos.crearBaseDeDatosNueva(self)
 
     def consultarPrecio(self):
-        pass
+        ConsultarPrecioDelProducto.GUIConsultarPrecioDelProducto.crearVentana(self)
 
     def consultarPorPalabra(self):
-        pass
+        ConsultarPorPalabraClave.GUIConsultarPorPalabraClave.crearVentana(self)
 
     def consultarPorArea(self):
         pass
@@ -123,7 +134,7 @@ class MyFirstGUI:
         pass
 
     def consultarProductosSinStock(self):
-        pass
+        ConsultarProductosSinStock.GUIConsultarProductosSinStock.crearVentana(self)
 
     def consultarTotalDelDia(self):
         pass
