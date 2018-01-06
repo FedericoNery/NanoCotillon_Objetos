@@ -115,7 +115,8 @@ class GUIAgregarArticulo:
         self.my_gui = GUIAgregarArticulo(self.root)
         self.root.mainloop()
 
-
+"""
 root = Tk()
 my_gui = GUIAgregarArticulo(root)
 root.mainloop()
+"""
