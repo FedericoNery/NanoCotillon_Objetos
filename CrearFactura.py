@@ -27,9 +27,6 @@ class GUICrearFactura:
         self.buttonFinalizarCompra = Button(self.master, text="Finalizar Compra", command=self.finalizarCompra, width=15, height=2)
         self.buttonFinalizarCompra.grid(row=0, column=2, columnspan=1, padx=5, pady=5, rowspan=2)
 
-        self.buttonQuitarTodo = Button(self.master, text="Quitar Todo", command=self.quitarTodo, width=15, height=2)
-        self.buttonQuitarTodo.grid(row=0, column=1, columnspan=1, padx=5, pady=5, rowspan=2)
-
         self.articulosFacturados = []
         self.filaProducto = 5
         self.columnaProducto = 0
@@ -41,8 +38,6 @@ class GUICrearFactura:
     def finalizarCompra(self):
         pass
 
-    def quitarTodo(self):
-        pass
 
     def extraerIDDeLaUltimaFactura(self):
         self.baseDeDatos.setComandoSql('SELECT MAX(ID_FACTURA) FROM FACTURAS;')
