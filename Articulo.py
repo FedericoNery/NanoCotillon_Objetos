@@ -18,3 +18,7 @@ class Articulo():
         self.fechaActualizacion = fechaActualizacion
         self.stock = stock
         self.altaBaja = altaBaja
+
+    def devolverPrecioNombreStock(self):
+        articulo = [self.nombreArticulo, str(self.precio), str(self.stock)]
+        return articulo
