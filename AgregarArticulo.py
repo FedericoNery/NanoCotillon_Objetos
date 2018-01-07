@@ -17,7 +17,6 @@ class GUIAgregarArticulo:
         master.title("AGREGAR ARTICULO")
         master.geometry("565x200+400+200")
 
-
         self.labelCodigo = Label(self.master, text="Codigo de Barra")
         self.labelCodigo.grid(row=0, column=1)
         self.labelDescripcion = Label(self.master, text="Descripción")
@@ -104,6 +103,16 @@ class GUIAgregarArticulo:
             self.estado = False
 
         return self.estado
+
+    def verificarQueNoExistaElArticulo(codigoDeBarras):
+        comandoSQL = 'SELECT CODIGO_DE_BARRA FROM ARTICULOS;'
+        funciones_SQLite.ejecutarComandoSQL(comandoSQL, cursorBaseDeDatos)
+        tablaConCodigosDeBarra = funciones_SQLite.extraerTabla(cursorBaseDeDatos)
+
+        for codigo in tablaConCodigosDeBarra:
+            if (codigo[0] == int(codigoDeBarras)):
+                return False
+        return True
 
     def agregarMarca(self):
         self.master.destroy()

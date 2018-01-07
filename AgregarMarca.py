@@ -33,6 +33,10 @@ class GUIAgregarMarca:
             self.master.destroy()
         except:
             messagebox.showinfo(parent=self.master, message='NOSE QUE ONDA', icon="warning", title="ERROR", type="ok")
+
+    def verificarQueNoExisteMarca(self):
+        pass
+
     def crearVentana(self):
         self.root = Tk()
         self.my_gui = GUIAgregarMarca(self.root)

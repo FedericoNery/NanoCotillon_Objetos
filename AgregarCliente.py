@@ -8,40 +8,42 @@ class GUIAgregarCliente:
         master.geometry("565x500+400+50")
 
         self.labelCodigo = Label(self.master, text="Nombre de Cliente")
-        self.labelCodigo.grid(row=0, column=1)
-        self.labelDescripcion = Label(self.master, text="Descripción")
-        self.labelDescripcion.grid(row=1, column=1)
+        self.labelCodigo.grid(row=0, column=0)
         self.labelPrecio = Label(self.master, text="Numero de Telefono")
-        self.labelPrecio.grid(row=2, column=1)
-        self.labelStock = Label(self.master, text="Stock")
-        self.labelStock.grid(row=3, column=1)
-        self.labelMarca = Label(self.master, text="Marca")
-        self.labelMarca.grid(row=4, column=1)
-        self.labelArea = Label(self.master, text="Area")
-        self.labelArea.grid(row=5, column=1)
+        self.labelPrecio.grid(row=0, column=1)
 
-        self.stringCodigo = StringVar()
-        self.entryCodigo = ttk.Entry(self.master, textvariable=self.stringCodigo)
-        self.entryCodigo.grid(row=6, column=1)
+        self.stringNombreCliente = StringVar()
+        self.entryNombreCliente = ttk.Entry(self.master, textvariable=self.stringNombreCliente)
+        self.entryNombreCliente.grid(row=1 , column=0)
 
-        self.stringNombre = StringVar()
-        self.entryNombre = ttk.Entry(self.master, textvariable=self.stringNombre)
-        self.entryNombre.grid(row=7, column=1)
+        self.intContacto = IntVar()
+        self.entryContacto = Entry(self.master, textvariable=self.intContacto)
+        self.entryContacto.grid(row=1, column=1, padx=5, pady=5)
 
-        self.stringPrecio = StringVar()
-        self.entryPrecio = ttk.Entry(self.master, textvariable=self.stringPrecio)
-        self.entryPrecio.grid(row=8, column=1)
+        self.buttonAgregarCliente = Button(self.master, text="Agregar Cliente", command=self.agregarCliente, width=20, height=3)
+        self.buttonAgregarCliente.grid(row=0, column=2, rowspan=3, padx=10)
 
-        self.stringStock = StringVar()
-        self.entryStock = ttk.Entry(self.master, textvariable=self.stringStock)
-        self.entryStock.grid(row=8, column=1)
+    def agregarCliente(self):
+        nombreDelCliente = self.stringNombreCliente.get()
+        noExisteCliente = verificarQueNoExistaElCliente(nombreDelCliente)
 
-        self.l = Listbox(self.master, height=10)
-        self.l.grid(row=9, column=1)
+        if (noExisteCliente):
+            numeroDeTelefonoDelCliente = ingreso_de_datos.ingresoNumeroDelCliente()
+            comandoSQL = 'INSERT INTO CLIENTES(NOMBRE,NUMERO_TELEFONO,ALTA_BAJA) VALUES("{}",{},1);'.format(nombreDelCliente, numeroDeTelefonoDelCliente)
+            funciones_SQLite.ejecutarComandoSQL(comandoSQL, cursorBaseDeDatos)
+            funciones_SQLite.guardarBaseDeDatos(baseDeDatos)
+        else:
+            print("Ya existe el cliente")
 
-        self.spinval = StringVar()
-        self.s = Spinbox(self.master, from_=1.0, to=100.0, textvariable=self.spinval)
-        self.s.grid(row=10, column=1)
+    def verificarQueNoExistaElCliente(nombreDelCliente):
+        comandoSQL = 'SELECT NOMBRE FROM CLIENTES;'
+        funciones_SQLite.ejecutarComandoSQL(comandoSQL, cursorBaseDeDatos)
+        tablaNombresDeClientes = funciones_SQLite.extraerTabla(cursorBaseDeDatos)
+
+        for nombre in tablaNombresDeClientes:
+            if (nombre[0] == nombreDelCliente):
+                return False
+        return True
 
     def crearVentana(self):
         self.root = Tk()

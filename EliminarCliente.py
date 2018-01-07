@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import ttk
+from tkinter import messagebox
 
 class GUIEliminarCliente:
     def __init__(self, master):
@@ -8,21 +8,28 @@ class GUIEliminarCliente:
         master.geometry("565x500+400+50")
 
         self.labelNombreCliente = Label(self.master, text="Nombre del Cliente")
-        self.labelNombreCliente.grid(row=0, column=1)
+        self.labelNombreCliente.grid(row=0, column=0)
+
+        self.stringClienteABuscar = StringVar()
+        self.entryClienteABuscar = Entry(self.master, textvariable=self.stringClienteABuscar)
+        self.entryClienteABuscar.grid(row=1, column=0)
 
         self.labelDescripcion = Label(self.master, text="Resultado de Busqueda")
-        self.labelDescripcion.grid(row=1, column=1)
+        self.labelDescripcion.grid(row=0, column=1)
 
-        self.l = Listbox(self.master, height=10)
-        self.l.grid(row=9, column=1)
+    def buscarClientePorPalabra(self):
+        pass
 
-        self.spinval = StringVar()
-        self.s = Spinbox(self.master, from_=1.0, to=100.0, textvariable=self.spinval)
-        self.s.grid(row=10, column=1)
+    def eliminarCliente(self):
+        pass
 
     def crearVentana(self):
         self.root = Tk()
         self.my_gui = GUIEliminarCliente(self.root)
         self.root.mainloop()
+        messagebox.showinfo(parent=self.master, message='INGRESE EL NOMBRE O PARTE \n DE UN CLIENTE PARA ELIMINAR', icon="info", title="ATENCION", type="ok")
 
+root = Tk()
+my_gui = GUIEliminarCliente(root)
+root.mainloop()
 
