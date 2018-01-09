@@ -16,9 +16,19 @@ class GUIModificarCliente:
         self.l = Listbox(self.master, height=10)
         self.l.grid(row=9, column=1)
 
-        self.spinval = StringVar()
-        self.s = Spinbox(self.master, from_=1.0, to=100.0, textvariable=self.spinval)
-        self.s.grid(row=10, column=1)
+        self.radioButtonPorNombre = Radiobutton(master, text="Por Nombre", value=1, function=self.selectorBuscarPorNombre)
+        self.radioButoonPorLista = Radiobutton(master, text="Por Lista", value=2, function=self.selectorBuscarPorLista)
+        self.radioButtonPorNombre.grid(row=4, column=0)
+        self.radioButoonPorLista.grid(row=5, column=0)
+
+    def selectorBuscarPorNombre(self):
+        pass
+
+    def selectorBuscarPorLista(self):
+        pass
+
+    def buscarClientesPorNombre(self):
+        pass
 
     def crearVentana(self):
         self.root = Tk()

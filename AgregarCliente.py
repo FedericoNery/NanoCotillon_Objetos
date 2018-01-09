@@ -1,8 +1,11 @@
 from tkinter import *
 from tkinter import ttk
+import BaseDeDatos
+from tkinter import messagebox
 
 class GUIAgregarCliente:
     def __init__(self, master):
+        self.baseDeDatos = BaseDeDatos.BaseDeDatos()
         self.master = master
         master.title("AGREGAR CLIENTE")
         master.geometry("565x500+400+50")
@@ -25,25 +28,37 @@ class GUIAgregarCliente:
 
     def agregarCliente(self):
         nombreDelCliente = self.stringNombreCliente.get()
-        noExisteCliente = verificarQueNoExistaElCliente(nombreDelCliente)
-
-        if (noExisteCliente):
-            numeroDeTelefonoDelCliente = ingreso_de_datos.ingresoNumeroDelCliente()
-            comandoSQL = 'INSERT INTO CLIENTES(NOMBRE,NUMERO_TELEFONO,ALTA_BAJA) VALUES("{}",{},1);'.format(nombreDelCliente, numeroDeTelefonoDelCliente)
-            funciones_SQLite.ejecutarComandoSQL(comandoSQL, cursorBaseDeDatos)
-            funciones_SQLite.guardarBaseDeDatos(baseDeDatos)
+        nombreDelCliente = nombreDelCliente.upper()
+        if (self.verificarQueNoExistaElCliente(nombreDelCliente)):
+            try:
+                numeroDeTelefonoDelCliente = self.intContacto.get()
+                if(self.verificarNumeroDeTelefono(numeroDeTelefonoDelCliente)):
+                    self.baseDeDatos.setComandoSql('INSERT INTO CLIENTES(NOMBRE,NUMERO_TELEFONO,ALTA_BAJA) VALUES("{}",{},1);'.format(nombreDelCliente, str(numeroDeTelefonoDelCliente)))
+                    self.baseDeDatos.ejecutarComandoSQL()
+                    self.baseDeDatos.guardarBaseDeDatos()
+                else:
+                    messagebox.showinfo(parent=self.master, message='INGRESE BIEN EL NUMERO', icon="warning", title="ATENCION!", type="ok")
+            except:
+                messagebox.showinfo(parent=self.master, message='COMPLETE LOS DATOS', icon="warning", title="ATENCION!", type="ok")
         else:
-            print("Ya existe el cliente")
+            messagebox.showinfo(parent=self.master, message='YA EXISTE EL CLIENTE', icon="warning", title="ATENCION!", type="ok")
 
-    def verificarQueNoExistaElCliente(nombreDelCliente):
-        comandoSQL = 'SELECT NOMBRE FROM CLIENTES;'
-        funciones_SQLite.ejecutarComandoSQL(comandoSQL, cursorBaseDeDatos)
-        tablaNombresDeClientes = funciones_SQLite.extraerTabla(cursorBaseDeDatos)
+    def verificarNumeroDeTelefono(self, numeroDeTelefono):
+        if(str(numeroDeTelefono).isdigit() and (len(str(numeroDeTelefono)) == 8 or len(str(numeroDeTelefono)) == 10)):
+            return True
+        else:
+            return False
 
-        for nombre in tablaNombresDeClientes:
-            if (nombre[0] == nombreDelCliente):
+    def verificarQueNoExistaElCliente(self,nombreDelCliente):
+        self.baseDeDatos.setComandoSql('SELECT NOMBRE FROM CLIENTES WHERE NOMBRE="{}";'.format(nombreDelCliente))
+        self.baseDeDatos.ejecutarComandoSQL()
+        self.baseDeDatos.setElemento()
+        try:
+            nombreEncontrado = self.baseDeDatos.elemento[0]
+            if(nombreEncontrado == nombreDelCliente):
                 return False
-        return True
+        except:
+            return True
 
     def crearVentana(self):
         self.root = Tk()

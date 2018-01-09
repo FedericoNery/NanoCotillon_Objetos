@@ -43,6 +43,7 @@ class GUIModificarMarca:
 
     def determinarNumeroDeMarcaDelArticulo(self,nombreDeLaMarca):
         try:
+            nombreDeLaMarca = nombreDeLaMarca.upper()
             self.baseDeDatos.setComandoSql('SELECT MARCAS.ID_MARCA FROM MARCAS WHERE NOMBRE_MARCA ="{}";'.format(nombreDeLaMarca))
             self.baseDeDatos.ejecutarComandoSQL()
             self.baseDeDatos.setElemento()

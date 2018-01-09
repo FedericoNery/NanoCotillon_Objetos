@@ -80,6 +80,7 @@ class GUIAgregarArticulo:
 
             codigoDeBarras = self.intCodigo
             nombre = self.stringNombre
+            nombre = nombre.upper()
             precio = self.doublePrecio
 
             self.stringArea = self.spinboxArea.get()
@@ -88,31 +89,34 @@ class GUIAgregarArticulo:
             idArea = self.baseDeDatos.listaDeAreas.index(self.stringArea) + 1
             stock = self.entryStock.get()
 
-
-            if(len(idMarca) != 0):
-                idMarca = idMarca[0] +1
-                self.miArticulo.setArticulo(codigoDeBarras, nombre, precio, idMarca, idArea, fecha, stock, 1)
-                self.estado = True
+            if(self.verificarQueNoExistaElArticulo(codigoDeBarras)):
+                if(len(idMarca) != 0):
+                    idMarca = idMarca[0] +1
+                    self.miArticulo.setArticulo(codigoDeBarras, nombre, precio, idMarca, idArea, fecha, stock, 1)
+                    self.estado = True
+                else:
+                    self.master.destroy()
+                    self.baseDeDatos.cerrarBaseDeDatos()
+                    AgregarMarca.GUIAgregarMarca.crearVentana(self)
+                    self.estado = False
             else:
-                self.master.destroy()
-                self.baseDeDatos.cerrarBaseDeDatos()
-                AgregarMarca.GUIAgregarMarca.crearVentana(self)
-                self.estado = False
+                messagebox.showinfo(parent=self.master, message='YA EXISTE EL ARTICULO', icon="warning", title="ERROR")
         except:
             messagebox.showinfo(parent=self.master,message='VERIFIQUE LOS DATOS INGRESADOS', icon ="warning", title="ERROR")
             self.estado = False
 
         return self.estado
 
-    def verificarQueNoExistaElArticulo(codigoDeBarras):
-        comandoSQL = 'SELECT CODIGO_DE_BARRA FROM ARTICULOS;'
-        funciones_SQLite.ejecutarComandoSQL(comandoSQL, cursorBaseDeDatos)
-        tablaConCodigosDeBarra = funciones_SQLite.extraerTabla(cursorBaseDeDatos)
-
-        for codigo in tablaConCodigosDeBarra:
-            if (codigo[0] == int(codigoDeBarras)):
+    def verificarQueNoExistaElArticulo(self, codigoDeBarrasIngresado):
+        self.baseDeDatos.setComandoSql('SELECT CODIGO_DE_BARRA FROM ARTICULOS WHERE CODIGO_DE_BARRA = {};'.format(codigoDeBarrasIngresado))
+        self.baseDeDatos.ejecutarComandoSQL()
+        self.baseDeDatos.setElemento()
+        try:
+            codigoEncontrado = self.baseDeDatos.elemento[0]
+            if(str(codigoEncontrado) == codigoDeBarrasIngresado):
                 return False
-        return True
+        except:
+            return True
 
     def agregarMarca(self):
         self.master.destroy()
@@ -124,8 +128,7 @@ class GUIAgregarArticulo:
         self.my_gui = GUIAgregarArticulo(self.root)
         self.root.mainloop()
 
-"""
+
 root = Tk()
 my_gui = GUIAgregarArticulo(root)
 root.mainloop()
-"""
