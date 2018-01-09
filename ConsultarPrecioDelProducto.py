@@ -60,3 +60,8 @@ class GUIConsultarPrecioDelProducto:
         self.my_gui = GUIConsultarPrecioDelProducto(self.root)
         self.root.mainloop()
 
+"""
+root = Tk()
+my_gui = GUIConsultarPorPalabraClave(root)
+root.mainloop()
+"""

@@ -35,7 +35,8 @@ class GUIEliminarArticulo:
         self.root = Tk()
         self.my_gui = GUIEliminarArticulo(self.root)
         self.root.mainloop()
-
+"""
 root = Tk()
 my_gui = GUIEliminarArticulo(root)
 root.mainloop()
+"""

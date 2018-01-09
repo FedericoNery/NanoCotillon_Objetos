@@ -38,10 +38,10 @@ class GUIAgregarMarca:
             messagebox.showinfo(parent=self.master, message='NOSE QUE ONDA', icon="warning", title="ERROR", type="ok")
 
     def verificarQueNoExisteMarca(self,nombreMarcaIngresada):
-        self.baseDeDatos.setComandoSql('SELECT NOMBRE FROM MARCAS WHERE NOMBRE LIKE "{}";'.format(nombreMarcaIngresada))
-        self.baseDeDatos.ejecutarComandoSQL()
-        self.baseDeDatos.setElemento()
         try:
+            self.baseDeDatos.setComandoSql('SELECT NOMBRE_MARCA FROM MARCAS WHERE NOMBRE_MARCA LIKE "%{}%";'.format(nombreMarcaIngresada))
+            self.baseDeDatos.ejecutarComandoSQL()
+            self.baseDeDatos.setElemento()
             marcaEncontrada = self.baseDeDatos.elemento[0]
             if (marcaEncontrada == nombreMarcaIngresada):
                 return False
@@ -53,4 +53,8 @@ class GUIAgregarMarca:
         self.my_gui = GUIAgregarMarca(self.root)
         self.root.mainloop()
 
-
+"""
+root = Tk()
+my_gui = GUIAgregarMarca(root)
+root.mainloop()
+"""

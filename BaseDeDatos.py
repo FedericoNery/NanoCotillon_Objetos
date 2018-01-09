@@ -17,10 +17,8 @@ class BaseDeDatos():
     def conectarConBaseDeDatos(self):
         try:
             self.baseDeDatos = sqlite3.connect("C:/Users/Federico-PC/PycharmProjects/NanoCotillon_Objetos/nanoCotillon.db")
-            print("todoOK")
         except:
             self.crearBaseDeDatosNueva()
-            print("que onda la BD")
 
     def definirCursor(self):
         self.cursorBaseDeDatos = self.baseDeDatos.cursor()
@@ -85,8 +83,6 @@ class BaseDeDatos():
             tablaDeMarcas = self.cursorBaseDeDatos.fetchall()
             for marca in tablaDeMarcas:
                 self.listaDeMarcas.append(marca[0])
-                print(marca[0])
-
         except:
             print("error lista marcas")
 
@@ -101,6 +97,15 @@ class BaseDeDatos():
 
         except:
             print("error lista areas")
+
+    def devolverListaDeClientes(self):
+        listaDeClientes = []
+        self.setComandoSql('SELECT NOMBRE FROM CLIENTES;')
+        self.ejecutarComandoSQL()
+        tablaDeClientes = self.cursorBaseDeDatos.fetchall()
+        for cliente in tablaDeClientes:
+            listaDeClientes.append(cliente[0])
+        return listaDeClientes
 
     def cerrarBaseDeDatos(self):
         self.baseDeDatos.close()

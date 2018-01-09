@@ -92,7 +92,7 @@ class GUIAgregarArticulo:
             if(self.verificarQueNoExistaElArticulo(codigoDeBarras)):
                 if(len(idMarca) != 0):
                     idMarca = idMarca[0] +1
-                    self.miArticulo.setArticulo(codigoDeBarras, nombre, precio, idMarca, idArea, fecha, stock, 1)
+                    self.miArticulo.setArticuloa(codigoDeBarras, nombre, precio, idMarca, idArea, fecha, stock, 1)
                     self.estado = True
                 else:
                     self.master.destroy()
@@ -128,7 +128,8 @@ class GUIAgregarArticulo:
         self.my_gui = GUIAgregarArticulo(self.root)
         self.root.mainloop()
 
-
+"""
 root = Tk()
 my_gui = GUIAgregarArticulo(root)
 root.mainloop()
+"""

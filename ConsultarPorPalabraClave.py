@@ -37,7 +37,8 @@ class GUIConsultarPorPalabraClave:
         self.my_gui = GUIConsultarPorPalabraClave(self.root)
         self.root.mainloop()
 
-
+"""
 root = Tk()
 my_gui = GUIConsultarPorPalabraClave(root)
 root.mainloop()
+"""

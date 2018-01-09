@@ -24,3 +24,9 @@ class GUIConsultarProductosSinStock:
         self.root = Tk()
         self.my_gui = GUIConsultarProductosSinStock(self.root)
         self.root.mainloop()
+
+"""
+root = Tk()
+my_gui = GUIConsultarPorPalabraClave(root)
+root.mainloop()
+"""

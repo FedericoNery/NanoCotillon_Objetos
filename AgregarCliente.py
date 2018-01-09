@@ -65,4 +65,9 @@ class GUIAgregarCliente:
         self.my_gui = GUIAgregarCliente(self.root)
         self.root.mainloop()
 
+"""
+root = Tk()
+my_gui = GUIAgregarCliente(root)
+root.mainloop()
+"""
 

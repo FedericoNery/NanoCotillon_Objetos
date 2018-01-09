@@ -58,6 +58,8 @@ class GUIModificarMarca:
         self.root.mainloop()
         messagebox.showinfo(parent=self.master, message='SELECCIONES UNA MARCA E INGRESE EL NUEVO NOMBRE', icon="info", title="ATENCION", type="ok")
 
+"""
 root = Tk()
 my_gui = GUIModificarMarca(root)
 root.mainloop()
+"""

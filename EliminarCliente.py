@@ -29,7 +29,8 @@ class GUIEliminarCliente:
         self.root.mainloop()
         messagebox.showinfo(parent=self.master, message='INGRESE EL NOMBRE O PARTE \n DE UN CLIENTE PARA ELIMINAR', icon="info", title="ATENCION", type="ok")
 
+"""
 root = Tk()
 my_gui = GUIEliminarCliente(root)
 root.mainloop()
-
+"""

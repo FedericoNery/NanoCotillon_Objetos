@@ -16,4 +16,8 @@ class GUIEliminarMarca:
         self.my_gui = GUIEliminarMarca(self.root)
         self.root.mainloop()
 
-
+"""
+root = Tk()
+my_gui = GUIEliminarCliente(root)
+root.mainloop()
+"""
